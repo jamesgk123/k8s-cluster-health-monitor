@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: crashloop-sample
+  labels:
+    app: crashloop-sample
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: crashloop-sample
+  template:
+    metadata:
+      labels:
+        app: crashloop-sample
+    spec:
+      containers:
+      - name: crashloop
+        image: busybox
+        args: ["/bin/sh", "-c", "sleep 1; exit 1"]  # crashes immediately
